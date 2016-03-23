@@ -1,18 +1,19 @@
 require_relative 'questions_database'
+require_relative 'model_base'
 
-class Reply
+class Reply < ModelBase
 
-  def self.find_by_id(target_id)
-    data = QuestionsDatabase.instance.get_first_row(<<-SQL, target_id)
-    SELECT
-      *
-    FROM
-      replies
-    WHERE
-      replies.id = ?
-    SQL
-    Reply.new(data)
-  end
+  # def self.find_by_id(target_id)
+  #   data = QuestionsDatabase.instance.get_first_row(<<-SQL, target_id)
+  #   SELECT
+  #     *
+  #   FROM
+  #     replies
+  #   WHERE
+  #     replies.id = ?
+  #   SQL
+  #   Reply.new(data)
+  # end
 
   def self.find_by_subject_question_id(target_id)
     data = QuestionsDatabase.instance.execute(<<-SQL, target_id)

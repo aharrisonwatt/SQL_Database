@@ -1,21 +1,22 @@
 require_relative 'questions_database'
 require_relative 'reply'
 require_relative 'question_follows'
+require_relative 'model_base'
 
-class Question
+class Question < ModelBase
   attr_accessor :id, :author_id, :title, :body
 
-  def self.find_by_id(target_id)
-    data = QuestionsDatabase.instance.get_first_row(<<-SQL, target_id)
-    SELECT
-      *
-    FROM
-      questions
-    WHERE
-      questions.id = ?
-    SQL
-    Question.new(data)
-  end
+  # def self.find_by_id(target_id)
+  #   data = QuestionsDatabase.instance.get_first_row(<<-SQL, target_id)
+  #   SELECT
+  #     *
+  #   FROM
+  #     questions
+  #   WHERE
+  #     questions.id = ?
+  #   SQL
+  #   Question.new(data)
+  # end
 
   def self.find_by_author_id(target_id)
     data = QuestionsDatabase.instance.execute(<<-SQL, target_id)

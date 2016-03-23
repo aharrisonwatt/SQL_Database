@@ -1,21 +1,23 @@
 require_relative 'questions_database'
 require_relative 'question'
 require_relative 'question_follows'
+require 'byebug'
+require_relative 'model_base'
 
-class User
+class User < ModelBase
   attr_accessor :id, :fname, :lname
 
-  def self.find_by_id(target_id)
-    data = QuestionsDatabase.instance.get_first_row(<<-SQL, target_id)
-    SELECT
-      *
-    FROM
-      users
-    WHERE
-      users.id = ?
-    SQL
-    User.new(data)
-  end
+  # def self.find_by_id(target_id)
+  #   data = QuestionsDatabase.instance.get_first_row(<<-SQL, target_id)
+  #   SELECT
+  #     *
+  #   FROM
+  #     users
+  #   WHERE
+  #     users.id = ?
+  #   SQL
+  #   User.new(data)
+  # end
 
   def self.find_by_name(fname, lname)
     data = QuestionsDatabase.instance.get_first_row(<<-SQL, fname, lname)
